@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panama Consulate Map - United States</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- Legend -->
+    <div class="legend" id="legend">
+        <div class="legend-header">
+            <h3>Panama Consulates</h3>
+            <span class="legend-toggle" id="legend-toggle"></span>
+        </div>
+        <div class="legend-content" id="legend-content">
+            <!-- Legend items will be populated by JS -->
+        </div>
+    </div>
+
+    <!-- Layer Control -->
+    <div class="layer-control" id="layer-control">
+        <div class="layer-icon" id="layer-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+        </div>
+        <div class="layer-options" id="layer-options">
+            <label class="layer-option">
+                <input type="radio" name="basemap" value="light" checked>
+                <span class="layer-label">Light</span>
+            </label>
+            <label class="layer-option">
+                <input type="radio" name="basemap" value="dark">
+                <span class="layer-label">Dark</span>
+            </label>
+            <label class="layer-option">
+                <input type="radio" name="basemap" value="satellite">
+                <span class="layer-label">Satellite</span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Attribution Footer -->
+    <div class="attribution">
+        <span class="dev-text">Developed by:</span>
+        <span class="dev-name">Asif Nawaz</span>
+        <button class="copy-btn" id="copy-btn" title="Copy email">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span class="copy-text" id="copy-text"></span>
+        </button>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>

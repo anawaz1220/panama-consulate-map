@@ -1,0 +1,52 @@
+{
+  "consulates": [
+    {
+      "id": "new-orleans",
+      "name": "New Orleans",
+      "color": "#61331C",
+      "states": ["Louisiana", "Arkansas", "Mississippi"]
+    },
+    {
+      "id": "los-angeles",
+      "name": "Los Angeles",
+      "color": "#F0544F",
+      "states": ["Washington", "Oregon", "Idaho", "Nevada", "California", "Arizona"]
+    },
+    {
+      "id": "miami",
+      "name": "Miami",
+      "color": "#F7B32B",
+      "states": ["Florida"]
+    },
+    {
+      "id": "washington-dc",
+      "name": "Washington, DC",
+      "color": "#5FA275",
+      "states": ["Montana", "Wyoming", "Colorado", "Utah", "New Mexico", "North Dakota", "South Dakota", "Nebraska", "Kansas", "Minnesota", "Iowa", "Missouri", "Wisconsin", "Illinois", "Michigan", "Indiana", "Ohio", "Kentucky", "West Virginia", "Virginia", "North Carolina", "Alaska", "Hawaii"]
+    },
+    {
+      "id": "new-york",
+      "name": "New York City",
+      "color": "#457B9D",
+      "states": ["New York", "Vermont", "New Hampshire", "Maine", "Massachusetts", "Rhode Island", "Connecticut"]
+    },
+    {
+      "id": "tampa",
+      "name": "Tampa",
+      "color": "#A7DADC",
+      "states": ["Tennessee", "Georgia", "South Carolina", "Alabama"]
+    },
+    {
+      "id": "houston",
+      "name": "Houston",
+      "color": "#E2B786",
+      "states": ["Texas", "Oklahoma"]
+    },
+    {
+      "id": "philadelphia",
+      "name": "Philadelphia",
+      "color": "#1D3557",
+      "states": ["Pennsylvania", "New Jersey", "Delaware", "Maryland"]
+    }
+  ]
+}
