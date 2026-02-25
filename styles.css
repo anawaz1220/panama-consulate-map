@@ -92,10 +92,15 @@ body {
     margin-bottom: 2px;
     transition: background 0.15s ease;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .legend-item:hover {
     background: #f5f7fa;
+}
+
+.legend-item:hover .legend-link-icon {
+    opacity: 1;
 }
 
 .legend-item:last-child {
@@ -115,6 +120,17 @@ body {
     font-size: 13px;
     font-weight: 500;
     color: #333;
+    flex: 1;
+}
+
+.legend-link-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #457B9D;
+    opacity: 0.5;
+    transition: opacity 0.15s ease;
+    margin-left: 6px;
 }
 
 /* Layer Control Styles - Bottom Left */

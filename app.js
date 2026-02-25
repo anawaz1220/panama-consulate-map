@@ -7,14 +7,10 @@
     // Configuration
     const CONFIG = {
         email: 'asifnawaz1220@gmail.com',
-        mapCenter: [39.8283, -98.5795],
-        mapZoom: 3,
-        minZoom: 3,
-        maxZoom: 18,
-        maxBounds: [
-            [15, -170],
-            [72, -50]
-        ]
+        mapCenter: [37.5, -96],
+        mapZoom: 4,
+        minZoom: 2,
+        maxZoom: 18
     };
 
     // Consulate data with colors from palette and website URLs
@@ -28,12 +24,6 @@
         { id: 'houston', name: 'Houston', color: '#E2B786', url: 'https://www.embassyofpanama.org/consulado-en-houston-texas' },
         { id: 'philadelphia', name: 'Philadelphia', color: '#1D3557', url: 'https://www.embassyofpanama.org/consulado-en-philadelphia-penssylvania' }
     ];
-
-    // Helper to get consulate URL by name
-    function getConsulateUrl(consulateName) {
-        const consulate = CONSULATES.find(c => c.name === consulateName);
-        return consulate ? consulate.url : '#';
-    }
 
     // Basemap configurations
     const BASEMAPS = {
@@ -74,8 +64,6 @@
             zoom: CONFIG.mapZoom,
             minZoom: CONFIG.minZoom,
             maxZoom: CONFIG.maxZoom,
-            maxBounds: CONFIG.maxBounds,
-            maxBoundsViscosity: 1.0,
             zoomControl: true
         });
 
@@ -123,24 +111,6 @@
     // Bind events to each feature
     function onEachFeature(feature, layer) {
         const props = feature.properties;
-        const consulateUrl = getConsulateUrl(props.consulate);
-
-        // Bind popup with link (opens on click)
-        const popupContent = `
-            <div style="text-align:left;font-family:'Inter',sans-serif;">
-                <span style="font-size:12px;font-weight:700;color:#1D3557;display:block;margin-bottom:4px;">${props.name}</span>
-                <span style="font-size:11px;color:#555;line-height:1.5;display:block;margin-bottom:8px;">Docs from <strong>${props.name}</strong> can be authenticated by the Panama consulate in <span style="font-weight:600;color:#457B9D;">${props.consulate}</span>.</span>
-                <a href="${consulateUrl}" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:#457B9D;text-decoration:none;display:inline-flex;align-items:center;gap:4px;font-weight:500;">
-                    Visit Consulate Website
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                </a>
-            </div>
-        `;
-
-        layer.bindPopup(popupContent, {
-            maxWidth: 250,
-            className: 'custom-popup'
-        });
 
         layer.on({
             mouseover: function(e) {
@@ -188,7 +158,6 @@
             <div style="text-align:left;">
                 <span style="font-size:11px;font-weight:700;color:#1D3557;display:block;margin-bottom:3px;">${properties.name}</span>
                 <span style="font-size:10px;color:#555;line-height:1.4;display:block;">Docs from <strong>${properties.name}</strong> can be authenticated by the Panama consulate in <span style="font-weight:600;color:#457B9D;">${properties.consulate}</span>.</span>
-                <span style="font-size:9px;color:#888;margin-top:4px;display:block;">Click for consulate link</span>
             </div>
         `;
         tooltip.style.display = 'block';
@@ -235,13 +204,20 @@
         const legendHeader = document.querySelector('.legend-header');
         const legend = document.getElementById('legend');
 
+        // External link icon SVG
+        const externalLinkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`;
+
         // Populate legend items
         CONSULATES.forEach(consulate => {
-            const item = document.createElement('div');
+            const item = document.createElement('a');
             item.className = 'legend-item';
+            item.href = consulate.url;
+            item.target = '_blank';
+            item.rel = 'noopener noreferrer';
             item.innerHTML = `
                 <div class="legend-color" style="background-color: ${consulate.color}"></div>
                 <span class="legend-label">${consulate.name}</span>
+                <span class="legend-link-icon">${externalLinkIcon}</span>
             `;
 
             // Hover effect to highlight states (commented out - may enable later)
