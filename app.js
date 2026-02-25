@@ -17,17 +17,23 @@
         ]
     };
 
-    // Consulate data with colors from palette
+    // Consulate data with colors from palette and website URLs
     const CONSULATES = [
-        { id: 'new-orleans', name: 'New Orleans', color: '#61331C' },
-        { id: 'los-angeles', name: 'Los Angeles', color: '#F0544F' },
-        { id: 'miami', name: 'Miami', color: '#F7B32B' },
-        { id: 'washington-dc', name: 'Washington, DC', color: '#5FA275' },
-        { id: 'new-york', name: 'New York City', color: '#457B9D' },
-        { id: 'tampa', name: 'Tampa', color: '#A7DADC' },
-        { id: 'houston', name: 'Houston', color: '#E2B786' },
-        { id: 'philadelphia', name: 'Philadelphia', color: '#1D3557' }
+        { id: 'new-orleans', name: 'New Orleans', color: '#61331C', url: 'https://www.embassyofpanama.org/consulado-en-new-orleans-louisiana' },
+        { id: 'los-angeles', name: 'Los Angeles', color: '#F0544F', url: 'https://www.embassyofpanama.org/consulado-en-los-angeles-california' },
+        { id: 'miami', name: 'Miami', color: '#F7B32B', url: 'https://www.embassyofpanama.org/consulado-miami-florida' },
+        { id: 'washington-dc', name: 'Washington, DC', color: '#5FA275', url: 'https://www.embassyofpanama.org/consulado-en-washington-dc' },
+        { id: 'new-york', name: 'New York City', color: '#457B9D', url: 'https://www.embassyofpanama.org/consulado-en-nueva-york-nueva-york' },
+        { id: 'tampa', name: 'Tampa', color: '#A7DADC', url: 'https://www.embassyofpanama.org/consulado-en-tampa-florida' },
+        { id: 'houston', name: 'Houston', color: '#E2B786', url: 'https://www.embassyofpanama.org/consulado-en-houston-texas' },
+        { id: 'philadelphia', name: 'Philadelphia', color: '#1D3557', url: 'https://www.embassyofpanama.org/consulado-en-philadelphia-penssylvania' }
     ];
+
+    // Helper to get consulate URL by name
+    function getConsulateUrl(consulateName) {
+        const consulate = CONSULATES.find(c => c.name === consulateName);
+        return consulate ? consulate.url : '#';
+    }
 
     // Basemap configurations
     const BASEMAPS = {
@@ -116,10 +122,30 @@
 
     // Bind events to each feature
     function onEachFeature(feature, layer) {
+        const props = feature.properties;
+        const consulateUrl = getConsulateUrl(props.consulate);
+
+        // Bind popup with link (opens on click)
+        const popupContent = `
+            <div style="text-align:left;font-family:'Inter',sans-serif;">
+                <span style="font-size:12px;font-weight:700;color:#1D3557;display:block;margin-bottom:4px;">${props.name}</span>
+                <span style="font-size:11px;color:#555;line-height:1.5;display:block;margin-bottom:8px;">Docs from <strong>${props.name}</strong> can be authenticated by the Panama consulate in <span style="font-weight:600;color:#457B9D;">${props.consulate}</span>.</span>
+                <a href="${consulateUrl}" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:#457B9D;text-decoration:none;display:inline-flex;align-items:center;gap:4px;font-weight:500;">
+                    Visit Consulate Website
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+            </div>
+        `;
+
+        layer.bindPopup(popupContent, {
+            maxWidth: 250,
+            className: 'custom-popup'
+        });
+
         layer.on({
             mouseover: function(e) {
                 highlightFeature(e);
-                showTooltip(e, feature.properties);
+                showTooltip(e, props);
             },
             mouseout: function(e) {
                 resetHighlight(e);
@@ -131,7 +157,7 @@
         });
     }
 
-    // Custom tooltip element
+    // Custom tooltip element (shows on hover)
     let tooltipEl = null;
 
     function createTooltipElement() {
@@ -162,6 +188,7 @@
             <div style="text-align:left;">
                 <span style="font-size:11px;font-weight:700;color:#1D3557;display:block;margin-bottom:3px;">${properties.name}</span>
                 <span style="font-size:10px;color:#555;line-height:1.4;display:block;">Docs from <strong>${properties.name}</strong> can be authenticated by the Panama consulate in <span style="font-weight:600;color:#457B9D;">${properties.consulate}</span>.</span>
+                <span style="font-size:9px;color:#888;margin-top:4px;display:block;">Click for consulate link</span>
             </div>
         `;
         tooltip.style.display = 'block';

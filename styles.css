@@ -329,6 +329,26 @@ body {
     display: none !important;
 }
 
+/* Custom Popup Styles */
+.custom-popup .leaflet-popup-content-wrapper {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.15);
+    padding: 0;
+}
+
+.custom-popup .leaflet-popup-content {
+    margin: 12px 14px;
+}
+
+.custom-popup .leaflet-popup-tip {
+    background: white;
+}
+
+.custom-popup a:hover {
+    text-decoration: underline !important;
+}
+
 /* Custom scrollbar for legend */
 .legend-content::-webkit-scrollbar {
     width: 4px;
